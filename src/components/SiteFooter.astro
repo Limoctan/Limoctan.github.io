@@ -1,0 +1,21 @@
+---
+import { t, ui, type Lang } from '../data/i18n';
+import SocialLinks from './SocialLinks.astro';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+---
+
+<footer
+  class="mt-24 flex flex-col items-center gap-5 border-t border-line pb-10 pt-6 text-xs text-muted sm:flex-row sm:justify-between lg:mt-32"
+>
+  <p class="font-mono">{t(ui.footer, lang)}</p>
+  <SocialLinks
+    label={t(ui.social, lang)}
+    class="flex items-center gap-5"
+    iconClass="h-5 w-5"
+  />
+</footer>

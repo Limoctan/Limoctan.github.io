@@ -1,0 +1,103 @@
+---
+import { anchors, headings, t, ui, type Lang } from '../data/i18n';
+import { site } from '../data/site';
+import Icon from './Icon.astro';
+import SectionHeading from './SectionHeading.astro';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+
+const items: {
+  href: string;
+  text: string;
+  ariaLabel?: string;
+  icon: 'mail' | 'phone' | 'linkedin' | 'github';
+}[] = [
+  {
+    href: `mailto:${site.contact.email}`,
+    text: site.contact.email,
+    ariaLabel: `${t(ui.emailLabel, lang)}: ${site.contact.email}`,
+    icon: 'mail',
+  },
+  {
+    href: `tel:${site.contact.phoneHref}`,
+    text: site.contact.phoneDisplay,
+    ariaLabel: `${t(ui.phoneLabel, lang)}: ${site.contact.phoneDisplay}`,
+    icon: 'phone',
+  },
+  {
+    href: site.social.linkedin,
+    text: 'LinkedIn',
+    icon: 'linkedin',
+  },
+  {
+    href: site.social.github,
+    text: 'GitHub',
+    icon: 'github',
+  },
+];
+---
+
+<section id={anchors[lang].contact} class="mt-24 scroll-mt-16 lg:mt-32">
+  <SectionHeading index="04" title={t(headings.contact, lang)} />
+
+  <p class="mt-6 max-w-xl leading-relaxed text-muted">
+    {t(ui.contactText, lang)}
+  </p>
+
+  <ul class="mt-8 grid gap-x-8 gap-y-4 sm:grid-cols-2">
+    {
+      items.map((item) => (
+        <li>
+          <a
+            href={item.href}
+            aria-label={item.ariaLabel}
+            {...(item.icon === 'mail' || item.icon === 'phone'
+              ? {}
+              : { target: '_blank', rel: 'noreferrer' })}
+            class="group flex items-start gap-3 text-sm text-muted transition-colors hover:text-accent"
+          >
+            <span class="mt-0.5 shrink-0 text-accent" aria-hidden="true">
+              {item.icon === 'mail' && (
+                <svg
+                  viewBox="0 0 24 24"
+                  class="h-4 w-4"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <rect x="2" y="4" width="20" height="16" rx="2" />
+                  <path d="m22 6-10 7L2 6" />
+                </svg>
+              )}
+              {item.icon === 'phone' && (
+                <svg
+                  viewBox="0 0 24 24"
+                  class="h-4 w-4"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z" />
+                </svg>
+              )}
+              {(item.icon === 'github' || item.icon === 'linkedin') && (
+                <Icon name={item.icon} class="h-4 w-4" />
+              )}
+            </span>
+            <span class="break-all transition-transform duration-200 group-hover:translate-x-1">
+              {item.text}
+            </span>
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+</section>

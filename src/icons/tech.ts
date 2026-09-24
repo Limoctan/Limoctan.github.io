@@ -1,0 +1,17 @@
+export const techIcons: Record<string, string> = {
+  Angular: 'angular',
+  VueJS: 'vuedotjs',
+  React: 'react',
+  TypeScript: 'typescript',
+  'CSS3/SASS': 'sass',
+  HTML5: 'html5',
+  Flutter: 'flutter',
+  Dart: 'dart',
+  NestJS: 'nestjs',
+  'Node.js': 'nodedotjs',
+  PHP: 'php',
+  PostgreSQL: 'postgresql',
+  MySQL: 'mysql',
+  Docker: 'docker',
+  Git: 'git',
+};

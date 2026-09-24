@@ -1,0 +1,25 @@
+---
+import { site } from '../data/site';
+import { t, ui, type Lang } from '../data/i18n';
+import { profile } from '../data/profile';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+---
+
+<section class="pt-14 lg:pt-0" aria-label="Intro">
+  <p class="max-w-2xl text-lg leading-relaxed text-muted">
+    {t(profile.intro, lang)}
+  </p>
+  <a
+    href={site.cv[lang]}
+    target="_blank"
+    rel="noopener noreferrer"
+    class="mt-8 inline-flex items-center gap-2 rounded border border-accent px-7 py-3 text-sm font-semibold text-accent transition duration-200 hover:-translate-y-0.5 hover:bg-accent/10"
+  >
+    {t(ui.downloadCv, lang)}
+  </a>
+</section>

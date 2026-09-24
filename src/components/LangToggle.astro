@@ -1,0 +1,36 @@
+---
+import { t, ui, type Lang } from '../data/i18n';
+
+interface Props {
+  lang: Lang;
+  class?: string;
+}
+
+const { lang, class: className = '' } = Astro.props;
+
+const linkClass = (active: boolean) =>
+  active
+    ? 'text-accent font-semibold'
+    : 'text-muted hover:text-accent transition-colors';
+---
+
+<nav
+  class={`flex items-center gap-2 font-mono text-xs tracking-[0.2em] ${className}`}
+  aria-label={t(ui.language, lang)}
+>
+  <a
+    href="/"
+    hreflang="es"
+    lang="es"
+    class={linkClass(lang === 'es')}
+    aria-current={lang === 'es' ? 'page' : undefined}>ES</a
+  >
+  <span class="text-muted/50" aria-hidden="true">|</span>
+  <a
+    href="/en/"
+    hreflang="en"
+    lang="en"
+    class={linkClass(lang === 'en')}
+    aria-current={lang === 'en' ? 'page' : undefined}>EN</a
+  >
+</nav>

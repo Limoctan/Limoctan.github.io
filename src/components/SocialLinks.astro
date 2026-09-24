@@ -1,0 +1,39 @@
+---
+import Icon from './Icon.astro';
+import { site } from '../data/site';
+
+interface Props {
+  label: string;
+  class?: string;
+  iconClass?: string;
+}
+
+const {
+  label,
+  class: className = 'flex items-center gap-5',
+  iconClass = 'h-6 w-6',
+} = Astro.props;
+
+const links = [
+  { name: 'github', href: site.social.github, text: 'GitHub' },
+  { name: 'linkedin', href: site.social.linkedin, text: 'LinkedIn' },
+];
+---
+
+<ul class={className} aria-label={label}>
+  {
+    links.map((link) => (
+      <li>
+        <a
+          href={link.href}
+          target="_blank"
+          rel="noreferrer"
+          aria-label={link.text}
+          class="icon-link block text-muted"
+        >
+          <Icon name={link.name} class={iconClass} />
+        </a>
+      </li>
+    ))
+  }
+</ul>

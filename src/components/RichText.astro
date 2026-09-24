@@ -1,0 +1,31 @@
+---
+import Icon from './Icon.astro';
+import { techIcons } from '../icons/tech';
+
+interface Props {
+  /** Text with `**bold**` markers; known tech names also get an inline icon. */
+  text: string;
+}
+
+const { text } = Astro.props;
+const parts = text.split(/(\*\*[^*]+\*\*)/g).filter(Boolean);
+---
+
+{
+  parts.map((part) => {
+    if (!part.startsWith('**')) return <Fragment set:text={part} />;
+    const label = part.slice(2, -2);
+    const slug = techIcons[label];
+    return (
+      <strong class="font-semibold text-text">
+        {slug && (
+          <Icon
+            name={slug}
+            class="mr-1.5 inline-block h-[0.95em] w-[0.95em] -translate-y-px text-accent"
+          />
+        )}
+        {label}
+      </strong>
+    );
+  })
+}

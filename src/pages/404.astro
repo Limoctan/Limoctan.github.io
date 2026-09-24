@@ -1,0 +1,68 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { ui } from '../data/i18n';
+
+const copy = {
+  es: {
+    home: 'Volver al inicio',
+    href: '/',
+  },
+  en: {
+    home: 'Back to home',
+    href: '/en/',
+  },
+};
+---
+
+<BaseLayout
+  lang="es"
+  title="404 · Jhonatan Brito"
+  description="Página no encontrada — Jhonatan Brito."
+>
+  <main
+    id="content"
+    class="flex min-h-screen items-center justify-center px-6"
+  >
+    <div class="text-center">
+      <div data-lang="es">
+        <p class="font-mono text-6xl font-bold text-accent">404</p>
+        <h1 class="mt-5 text-2xl font-bold text-text">
+          {ui.notFound.title._es}
+        </h1>
+        <p class="mt-3 text-muted">{ui.notFound.message._es}</p>
+        <a
+          href={copy.es.href}
+          class="mt-8 inline-flex items-center gap-2 rounded border border-accent px-6 py-2.5 text-sm font-semibold text-accent transition duration-200 hover:-translate-y-0.5 hover:bg-accent/10"
+        >
+          {copy.es.home}
+        </a>
+      </div>
+
+      <div data-lang="en" hidden>
+        <p class="font-mono text-6xl font-bold text-accent">404</p>
+        <h1 class="mt-5 text-2xl font-bold text-text">
+          {ui.notFound.title._en}
+        </h1>
+        <p class="mt-3 text-muted">{ui.notFound.message._en}</p>
+        <a
+          href={copy.en.href}
+          class="mt-8 inline-flex items-center gap-2 rounded border border-accent px-6 py-2.5 text-sm font-semibold text-accent transition duration-200 hover:-translate-y-0.5 hover:bg-accent/10"
+        >
+          {copy.en.home}
+        </a>
+      </div>
+    </div>
+  </main>
+
+  <script is:inline>
+    (function () {
+      var prefersEnglish =
+        (navigator.language || 'es').toLowerCase().indexOf('en') === 0;
+      var lang = prefersEnglish ? 'en' : 'es';
+      document.documentElement.lang = lang;
+      document.querySelectorAll('[data-lang]').forEach(function (el) {
+        el.hidden = el.getAttribute('data-lang') !== lang;
+      });
+    })();
+  </script>
+</BaseLayout>

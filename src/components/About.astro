@@ -1,0 +1,50 @@
+---
+import { anchors, headings, t, type Lang } from '../data/i18n';
+import { profile } from '../data/profile';
+import { skillGroups } from '../data/skills';
+import Icon from './Icon.astro';
+import SectionHeading from './SectionHeading.astro';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+---
+
+<section id={anchors[lang].about} class="mt-24 scroll-mt-16 lg:mt-32">
+  <SectionHeading index="01" title={t(headings.about, lang)} />
+
+  <div class="mt-6 space-y-4 leading-relaxed text-muted">
+    <p>{t(profile.summary, lang)}</p>
+  </div>
+
+  <div class="mt-10 grid gap-x-10 gap-y-8 sm:grid-cols-2">
+    {
+      skillGroups.map((group) => (
+        <div>
+          <h3 class="flex items-center gap-3 font-semibold text-text">
+            <span class="h-px w-5 bg-accent" aria-hidden="true" />
+            {t(group.title, lang)}
+          </h3>
+          <ul class="mt-4 space-y-2.5">
+            {group.items.map((item) => (
+              <li class="flex items-center gap-3 text-sm text-muted">
+                {item.icon && (
+                  <Icon
+                    name={item.icon}
+                    class="h-4 w-4 shrink-0 text-accent"
+                  />
+                )}
+                {!item.icon && (
+                  <span class="inline-block h-4 w-4 shrink-0" aria-hidden="true" />
+                )}
+                {t(item.name, lang)}
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))
+    }
+  </div>
+</section>

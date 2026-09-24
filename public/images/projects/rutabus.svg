@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="500" viewBox="0 0 800 500" role="img" aria-label="RutaBus placeholder">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#180f10" />
+      <stop offset="60%" stop-color="#331d21" />
+      <stop offset="100%" stop-color="#5b4145" />
+    </linearGradient>
+  </defs>
+  <rect width="800" height="500" fill="url(#bg)" />
+  <g stroke="#c9bfc0" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <path
+      d="M60 380 C 180 380, 200 240, 320 240 S 480 120, 620 140 S 740 210, 760 300"
+      stroke-width="6"
+      opacity="0.75"
+    />
+    <path
+      d="M60 430 C 220 430, 260 330, 400 320 S 620 260, 760 350"
+      stroke-width="3"
+      stroke-dasharray="14 14"
+      opacity="0.35"
+    />
+  </g>
+  <g fill="#180f10" stroke="#c9bfc0" stroke-width="5">
+    <circle cx="60" cy="380" r="16" />
+    <circle cx="320" cy="240" r="16" />
+    <circle cx="620" cy="140" r="16" />
+    <circle cx="760" cy="300" r="16" />
+  </g>
+  <g fill="#c9bfc0" opacity="0.3">
+    <rect x="60" y="80" width="180" height="14" rx="7" />
+    <rect x="60" y="110" width="110" height="10" rx="5" />
+    <rect x="560" y="410" width="180" height="14" rx="7" />
+    <rect x="630" y="440" width="110" height="10" rx="5" />
+  </g>
+</svg>
