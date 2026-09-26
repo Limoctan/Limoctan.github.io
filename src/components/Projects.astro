@@ -1,8 +1,9 @@
 ---
-import { anchors, headings, t, ui, type Lang } from '../data/i18n';
-import { projects } from '../data/projects';
-import Icon from './Icon.astro';
-import SectionHeading from './SectionHeading.astro';
+import { Image } from "astro:assets";
+import { anchors, headings, t, ui, type Lang } from "../data/i18n";
+import { professionalProjects, personalProjects } from "../data/projects";
+import SectionHeading from "./SectionHeading.astro";
+import { Github } from "simple-icons-astro";
 
 interface Props {
   lang: Lang;
@@ -13,13 +14,15 @@ const { lang } = Astro.props;
 
 <section id={anchors[lang].projects} class="mt-24 scroll-mt-16 lg:mt-32">
   <SectionHeading index="03" title={t(headings.projects, lang)} />
-
-  <div class="mt-8 grid gap-6 sm:grid-cols-2">
+  <h3 class="flex items-center gap-4 mt-8">
+    <span class="text-base font-semibold text-text">Profesionales</span>
+  </h3>
+  <div class="mt-4 mb-12 grid gap-6 sm:grid-cols-2">
     {
-      projects.map((project) => (
+      professionalProjects.map((project) => (
         <article class="group flex flex-col overflow-hidden rounded-md border border-line bg-bg-raised transition duration-300 hover:-translate-y-1 hover:border-accent/60 hover:bg-bg-hover">
-          <div class="aspect-[16/10] overflow-hidden border-b border-line">
-            <img
+          <div class="aspect-16/10 overflow-hidden border-b border-line">
+            <Image
               src={project.image}
               alt=""
               width="800"
@@ -31,44 +34,132 @@ const { lang } = Astro.props;
           </div>
           <div class="flex flex-1 flex-col p-5">
             <h3 class="font-semibold text-text transition-colors group-hover:text-accent">
-              {lang === 'es' ? project.title_es : project.title_en}
+              {lang === "es" ? project.title_es : project.title_en}
             </h3>
             <p class="mt-2 text-sm leading-relaxed text-muted">
-              {lang === 'es' ? project.desc_es : project.desc_en}
+              {lang === "es" ? project.desc_es : project.desc_en}
             </p>
-            <ul class="mt-4 flex flex-wrap gap-x-4 gap-y-1 font-mono text-[11px] text-muted">
+            <ul class="mt-4 mb-5 flex flex-wrap gap-x-4 gap-y-1 font-mono text-[11px] text-muted">
               {project.tags.map((tag) => (
                 <li>{tag}</li>
               ))}
             </ul>
-            <div class="mt-5 flex items-center gap-5 pt-1 font-mono text-xs">
-              <a
-                href={project.links.demo}
-                class="inline-flex items-center gap-1.5 text-muted transition-colors hover:text-accent"
-              >
-                <svg
-                  viewBox="0 0 24 24"
-                  class="h-3.5 w-3.5"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  aria-hidden="true"
+
+            <div class="mt-auto flex items-center gap-5 pt-1 font-mono text-xs">
+              {project.links.demo && (
+                <a
+                  href={project.links.demo}
+                  class="inline-flex items-center gap-1.5 text-muted transition-colors hover:text-accent"
                 >
-                  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
-                  <path d="M15 3h6v6" />
-                  <path d="M10 14 21 3" />
-                </svg>
-                {t(ui.projectDemo, lang)}
-              </a>
-              <a
-                href={project.links.code}
-                class="inline-flex items-center gap-1.5 text-muted transition-colors hover:text-accent"
-              >
-                <Icon name="github" class="h-3.5 w-3.5" />
-                {t(ui.projectCode, lang)}
-              </a>
+                  <svg
+                    viewBox="0 0 24 24"
+                    class="h-3.5 w-3.5"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    aria-hidden="true"
+                  >
+                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+                    <path d="M15 3h6v6" />
+                    <path d="M10 14 21 3" />
+                  </svg>
+                  {t(ui.projectDemo, lang)}
+                </a>
+              )}
+              {project.links.code && (
+                <a
+                  href={project.links.code}
+                  class="inline-flex items-center gap-1.5 text-muted transition-colors hover:text-accent"
+                >
+                  <Github class="h-3.5 w-3.5" />
+                  {t(ui.projectCode, lang)}
+                </a>
+              )}
+
+              {!project.links.code && (
+                <span class="inline-flex items-center gap-1.5 text-muted">
+                  Repositorio privado
+                </span>
+              )}
+            </div>
+          </div>
+        </article>
+      ))
+    }
+  </div>
+
+  <h3 class="flex items-center gap-4 mt-8">
+    <span class="text-base font-semibold text-text">Proyectos personales</span>
+  </h3>
+
+  <div class="mt-4 grid gap-6 sm:grid-cols-2">
+    {
+      personalProjects.map((project) => (
+        <article class="group flex flex-col overflow-hidden rounded-md border border-line bg-bg-raised transition duration-300 hover:-translate-y-1 hover:border-accent/60 hover:bg-bg-hover">
+          <div class="aspect-16/10 overflow-hidden border-b border-line">
+            <Image
+              src={project.image}
+              alt=""
+              width="800"
+              height="500"
+              loading="lazy"
+              decoding="async"
+              class="h-full w-full object-contain transition duration-300 group-hover:scale-105"
+            />
+          </div>
+          <div class="flex flex-1 flex-col p-5">
+            <h3 class="font-semibold text-text transition-colors group-hover:text-accent">
+              {lang === "es" ? project.title_es : project.title_en}
+            </h3>
+            <p class="mt-2 text-sm leading-relaxed text-muted">
+              {lang === "es" ? project.desc_es : project.desc_en}
+            </p>
+            <ul class="mt-4 mb-5 flex flex-wrap gap-x-4 gap-y-1 font-mono text-[11px] text-muted">
+              {project.tags.map((tag) => (
+                <li>{tag}</li>
+              ))}
+            </ul>
+
+            <div class="mt-auto flex items-center gap-5 pt-1 font-mono text-xs">
+              {project.links.demo && (
+                <a
+                  href={project.links.demo}
+                  class="inline-flex items-center gap-1.5 text-muted transition-colors hover:text-accent"
+                >
+                  <svg
+                    viewBox="0 0 24 24"
+                    class="h-3.5 w-3.5"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    aria-hidden="true"
+                  >
+                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+                    <path d="M15 3h6v6" />
+                    <path d="M10 14 21 3" />
+                  </svg>
+                  {t(ui.projectDemo, lang)}
+                </a>
+              )}
+              {project.links.code && (
+                <a
+                  href={project.links.code}
+                  class="inline-flex items-center gap-1.5 text-muted transition-colors hover:text-accent"
+                >
+                  <Github class="h-3.5 w-3.5" />
+                  {t(ui.projectCode, lang)}
+                </a>
+              )}
+
+              {!project.links.code && (
+                <span class="inline-flex items-center gap-1.5 text-muted">
+                  Repositorio privado
+                </span>
+              )}
             </div>
           </div>
         </article>

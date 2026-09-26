@@ -1,9 +1,9 @@
 ---
-import { anchors, headings, t, type Lang } from '../data/i18n';
-import { profile } from '../data/profile';
-import { skillGroups } from '../data/skills';
-import Icon from './Icon.astro';
-import SectionHeading from './SectionHeading.astro';
+import { anchors, headings, t, type Lang } from "../data/i18n";
+import { profile } from "../data/profile";
+import { skillGroups } from "../data/skills";
+import { getIcon, techIcons } from "../icons/techIcons";
+import SectionHeading from "./SectionHeading.astro";
 
 interface Props {
   lang: Lang;
@@ -28,20 +28,21 @@ const { lang } = Astro.props;
             {t(group.title, lang)}
           </h3>
           <ul class="mt-4 space-y-2.5">
-            {group.items.map((item) => (
-              <li class="flex items-center gap-3 text-sm text-muted">
-                {item.icon && (
-                  <Icon
-                    name={item.icon}
-                    class="h-4 w-4 shrink-0 text-accent"
-                  />
-                )}
-                {!item.icon && (
-                  <span class="inline-block h-4 w-4 shrink-0" aria-hidden="true" />
-                )}
-                {t(item.name, lang)}
-              </li>
-            ))}
+            {group.items.map((item) => {
+              const Icon = item.icon ? getIcon(item.icon) : "";
+              return (
+                <li class="flex items-center gap-3 text-sm text-muted">
+                  {item.icon && <Icon class="h-4 w-4 shrink-0 text-accent" />}
+                  {!item.icon && (
+                    <span
+                      class="inline-block h-4 w-4 shrink-0"
+                      aria-hidden="true"
+                    />
+                  )}
+                  {t(item.name, lang)}
+                </li>
+              );
+            })}
           </ul>
         </div>
       ))
